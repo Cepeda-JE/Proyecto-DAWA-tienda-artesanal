@@ -1,0 +1,169 @@
+<div class="container-fluid mt-3">
+
+  <!-- Encabezado -->
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Gestión de Productos</h2>
+    <button class="btn btn-success" (click)="openNew()">
+      + Nuevo Producto
+    </button>
+  </div>
+
+  <!-- Buscador -->
+  <input type="text" class="form-control mb-3"
+    placeholder="Buscar producto por nombre..."
+    #busq (keyup)="search(busq)">
+
+  <!-- Tabla -->
+  <table class="table table-bordered table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>Nombre</th>
+        <th>Categoría</th>
+        <th>Precio</th>
+        <th>Stock</th>
+        <th>Vendedor</th>
+        <th>Disponible</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (p of productosConVendedor(); track p.id) {
+        <tr>
+          <td>{{ p.nombre }}</td>
+          <td>{{ p.categoria }}</td>
+          <td>$ {{ p.precio }}</td>
+          <td>{{ p.stock }}</td>
+          <td>{{ p.vendedorNombre }}</td>
+          <td>{{ p.disponible ? 'Sí' : 'No' }}</td>
+          <td>
+            <button class="btn btn-primary btn-sm me-1" (click)="openEdit(p)">
+              Editar
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="delete(p)">
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<!-- MODAL -->
+<div class="modal fade" tabindex="-1" #productoModalRef>
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">
+          {{ editingId ? 'Editar Producto' : 'Nuevo Producto' }}
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <form [formGroup]="formProducto" (submit)="save()">
+        <div class="modal-body">
+
+          <!-- NOMBRE -->
+          <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            <input type="text" class="form-control" formControlName="nombre" />
+            @if(formProducto.get('nombre')?.touched && formProducto.get('nombre')?.invalid) {
+              @if(formProducto.get('nombre')?.errors?.['required']) {
+                <div class="text-danger">El nombre es requerido</div>
+              }
+              @if(formProducto.get('nombre')?.errors?.['minlength']) {
+                <div class="text-danger">Mínimo 3 caracteres</div>
+              }
+            }
+          </div>
+
+          <!-- DESCRIPCIÓN -->
+          <div class="mb-3">
+            <label class="form-label">Descripción</label>
+            <textarea class="form-control" formControlName="descripcion" rows="3"></textarea>
+            @if(formProducto.get('descripcion')?.touched && formProducto.get('descripcion')?.invalid) {
+              <div class="text-danger">La descripción es requerida (mínimo 5 caracteres)</div>
+            }
+          </div>
+
+          <!-- PRECIO -->
+          <div class="mb-3">
+            <label class="form-label">Precio ($)</label>
+            <input type="number" class="form-control" formControlName="precio" />
+            @if(formProducto.get('precio')?.touched && formProducto.get('precio')?.invalid) {
+              <div class="text-danger">Ingresa un precio válido (mayor a 0)</div>
+            }
+          </div>
+
+          <!-- CATEGORÍA (combo) -->
+          <div class="mb-3">
+            <label class="form-label">Categoría</label>
+            <select class="form-select" formControlName="categoria">
+              <option value="">Seleccione...</option>
+              @for(cat of categorias; track $index) {
+                <option [value]="cat">{{ cat }}</option>
+              }
+            </select>
+            @if(formProducto.get('categoria')?.touched && formProducto.get('categoria')?.invalid) {
+              <div class="text-danger">Selecciona una categoría</div>
+            }
+          </div>
+
+          <!-- STOCK -->
+          <div class="mb-3">
+            <label class="form-label">Stock</label>
+            <input type="number" class="form-control" formControlName="stock" />
+            @if(formProducto.get('stock')?.touched && formProducto.get('stock')?.invalid) {
+              <div class="text-danger">Ingresa un stock válido (0 o más)</div>
+            }
+          </div>
+
+          <!-- VENDEDOR (combo) -->
+          <div class="mb-3">
+            <label class="form-label">Vendedor</label>
+            <select class="form-select" formControlName="vendedorId">
+              <option value="">Seleccione...</option>
+              @for(v of vendedores(); track v.id) {
+                <option [value]="v.id">{{ v.nombre }}</option>
+              }
+            </select>
+            @if(formProducto.get('vendedorId')?.touched && formProducto.get('vendedorId')?.invalid) {
+              <div class="text-danger">Selecciona un vendedor</div>
+            }
+          </div>
+
+          <!-- IMAGEN (URL) -->
+          <div class="mb-3">
+            <label class="form-label">Imagen (URL)</label>
+            <input type="text" class="form-control" formControlName="imagen"
+              placeholder="https://..." />
+          </div>
+
+          <!-- DISPONIBLE (checkbox) -->
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox"
+              formControlName="disponible" id="checkDisponible" />
+            <label class="form-check-label" for="checkDisponible">Disponible</label>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" type="submit">Guardar</button>
+          <button class="btn btn-secondary" type="button" (click)="modalRef.hide()">Cancelar</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<!-- Diálogo reutilizable de confirmaciónn -->
+<app-dialogo-confirmacion
+  #dialogoEliminar
+  titulo="Eliminar Producto"
+  [mensaje]="'¿Deseas eliminar ' + (productoAEliminar?.nombre || '') + '?'"
+  textoBtnConfirmar="Sí, eliminar"
+  (confirmado)="confirmarEliminar()"
+  (cancelado)="productoAEliminar = null">
+</app-dialogo-confirmacion>

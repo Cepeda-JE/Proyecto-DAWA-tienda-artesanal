@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "nombre": "Bolso tejido a mano",
+    "descripcion": "Bolso artesanal elaborado con lana de alpaca",
+    "precio": 35.00,
+    "categoria": "accesorios",
+    "stock": 10,
+    "imagen": "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400",
+    "vendedorId": 1,
+    "disponible": true
+  },
+  {
+    "id": 2,
+    "nombre": "Camiseta bordada",
+    "descripcion": "Camiseta con bordado tradicional ecuatoriano",
+    "precio": 25.00,
+    "categoria": "ropa",
+    "stock": 15,
+    "imagen": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400",
+    "vendedorId": 1,
+    "disponible": true
+  },
+  {
+    "id": 3,
+    "nombre": "Mermelada de mora artesanal",
+    "descripcion": "Mermelada elaborada con moras frescas de la sierra",
+    "precio": 8.50,
+    "categoria": "alimentos",
+    "stock": 30,
+    "imagen": "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=400",
+    "vendedorId": 2,
+    "disponible": true
+  },
+  {
+    "id": 4,
+    "nombre": "Collar de piedras naturales",
+    "descripcion": "Collar hecho con piedras semipreciosas del Ecuador",
+    "precio": 18.00,
+    "categoria": "accesorios",
+    "stock": 20,
+    "imagen": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400",
+    "vendedorId": 2,
+    "disponible": true
+  },
+  {
+    "id": 5,
+    "nombre": "Poncho de lana",
+    "descripcion": "Poncho tradicional otavaleño tejido a mano",
+    "precio": 55.00,
+    "categoria": "ropa",
+    "stock": 8,
+    "imagen": "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=400",
+    "vendedorId": 3,
+    "disponible": true
+  }
+]

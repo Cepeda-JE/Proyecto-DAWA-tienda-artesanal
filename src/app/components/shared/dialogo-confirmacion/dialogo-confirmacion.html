@@ -1,0 +1,27 @@
+<div class="modal fade" tabindex="-1" #dialogoRef>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title">⚠️ {{ titulo }}</h5>
+        <button type="button" class="btn-close btn-close-white"
+          (click)="onCancelar()">
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <p>{{ mensaje }}</p>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="onCancelar()">
+          {{ textoBtnCancelar }}
+        </button>
+        <button class="btn btn-danger" (click)="onConfirmar()">
+          {{ textoBtnConfirmar }}
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

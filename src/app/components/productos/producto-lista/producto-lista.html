@@ -1,0 +1,49 @@
+<div class="container mt-4">
+
+  <h2 class="mb-1">Catálogo de Productos</h2>
+  <p class="text-muted mb-3">Productos artesanales ecuatorianos</p>
+
+  <!-- Filtros por categoría -->
+  <div class="d-flex gap-2 mb-4 flex-wrap">
+    @for(cat of categorias; track $index) {
+      <button
+        class="btn btn-sm"
+        [class.btn-dark]="categoriaSeleccionada() === cat"
+        [class.btn-outline-dark]="categoriaSeleccionada() !== cat"
+        (click)="filtrarPorCategoria(cat)">
+        {{ cat | titlecase }}
+      </button>
+    }
+  </div>
+
+  <!-- Cards de productos -->
+  <div class="row">
+    @for(p of productosFiltrados(); track p.id) {
+      <div class="col-md-4 col-sm-6 mb-4">
+        <div class="card h-100 shadow-sm">
+          <img
+            [src]="p.imagen || 'https://placehold.co/400x200?text=Sin+imagen'"
+            class="card-img-top"
+            style="height: 200px; object-fit: cover;"
+            [alt]="p.nombre">
+          <div class="card-body">
+            <span class="badge bg-secondary mb-2">{{ p.categoria }}</span>
+            <h5 class="card-title">{{ p.nombre }}</h5>
+            <p class="card-text text-muted small">{{ p.descripcion }}</p>
+          </div>
+          <div class="card-footer d-flex justify-content-between align-items-center">
+            <span class="fw-bold text-success fs-5">${{ p.precio }}</span>
+            <span class="text-muted small">Stock: {{ p.stock }}</span>
+          </div>
+        </div>
+      </div>
+    }
+
+    @if(productosFiltrados().length === 0) {
+      <div class="col-12 text-center text-muted mt-4">
+        <p>No hay productos en esta categoría.</p>
+      </div>
+    }
+  </div>
+
+</div>

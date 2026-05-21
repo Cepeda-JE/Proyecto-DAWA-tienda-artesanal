@@ -1,0 +1,32 @@
+.card {
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  overflow: hidden;
+  min-height: 150px;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+}
+
+.info-basica {
+  display: block;
+  transition: opacity 0.3s;
+}
+
+.info-detalle {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 0.9rem;
+}
+
+.card:hover .info-basica {
+  display: none;
+}
+
+.card:hover .info-detalle {
+  display: block;
+  opacity: 1;
+}

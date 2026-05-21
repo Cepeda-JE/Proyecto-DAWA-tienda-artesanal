@@ -2,29 +2,44 @@
   <h2 class="mb-4">Nuestros Vendedores</h2>
 
   <div class="row row-cols-1 row-cols-md-3 g-4">
-    <div class="col" *ngFor="let v of vendedores">
-      <div class="card h-100 shadow-sm">
-        <div class="card-body">
-          <h5 class="card-title">{{ v.nombre }}</h5>
-          <h6 class="card-subtitle mb-2 text-muted">{{ v.email }}</h6>
-          <p class="card-text">{{ v.descripcion }}</p>
-        </div>
-        <div class="card-footer d-flex justify-content-between align-items-center">
-          <span class="badge {{ getBadgeColor(v.categoria) }}">
-            {{ v.categoria | titlecase }}
-          </span>
-          <span class="badge"
-            [class.bg-success]="v.activo"
-            [class.bg-danger]="!v.activo">
-            {{ v.activo ? 'Activo' : 'Inactivo' }}
-          </span>
-          <small class="text-muted">{{ v.fechaRegistro }}</small>
+    @for (v of vendedores; track v.id) {
+      <div class="col">
+        <div class="card h-100">
+
+          <!-- Vista normal -->
+          <div class="card-body info-basica">
+            <h5 class="card-title">{{ v.nombre }}</h5>
+            <span class="badge {{ getBadgeColor(v.categoria) }}">
+              {{ v.categoria | titlecase }}
+            </span>
+            <span class="badge ms-1"
+              [class.bg-success]="v.activo"
+              [class.bg-danger]="!v.activo">
+              {{ v.activo ? 'Activo' : 'Inactivo' }}
+            </span>
+          </div>
+
+          <!-- Vista hover -->
+          <div class="card-body info-detalle">
+            <h5 class="card-title">{{ v.nombre }}</h5>
+            <p class="mb-1"><i class="fas fa-envelope me-2"></i>{{ v.email }}</p>
+            <p class="mb-1"><i class="fas fa-phone me-2"></i>{{ v.telefono }}</p>
+            <p class="mb-1"><i class="fas fa-calendar me-2"></i>{{ v.fechaRegistro }}</p>
+            <p class="mb-2"><i class="fas fa-info-circle me-2"></i>{{ v.descripcion }}</p>
+            <span class="badge {{ getBadgeColor(v.categoria) }}">
+              {{ v.categoria | titlecase }}
+            </span>
+            <span class="badge ms-1"
+              [class.bg-success]="v.activo"
+              [class.bg-danger]="!v.activo">
+              {{ v.activo ? 'Activo' : 'Inactivo' }}
+            </span>
+          </div>
+
         </div>
       </div>
-    </div>
-
-    <div *ngIf="vendedores.length === 0" class="col">
+    } @empty {
       <p class="text-muted">No hay vendedores registrados.</p>
-    </div>
+    }
   </div>
 </div>

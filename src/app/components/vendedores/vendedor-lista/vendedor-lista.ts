@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { VendedorService } from '../../../services/vendedor';
+import { HttpClient } from '@angular/common/http';
 import { Vendedor } from '../../../models/Vendedor';
 
 @Component({
@@ -13,12 +13,12 @@ import { Vendedor } from '../../../models/Vendedor';
 export class VendedorListaComponent implements OnInit {
   vendedores: Vendedor[] = [];
 
-  constructor(private vendedorService: VendedorService) {}
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.vendedorService.getAll().subscribe(datos => {
-      this.vendedorService.inicializar(datos);
-      this.vendedores = this.vendedorService['vendedores'];
+    this.http.get<Vendedor[]>('/json/vendedores.json').subscribe(datos => {
+      console.log('datos:', datos);
+      this.vendedores = datos;
     });
   }
 

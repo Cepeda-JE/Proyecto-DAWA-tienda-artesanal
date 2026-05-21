@@ -1,5 +1,52 @@
 [
-  { "id": 1, "nombre": "Neider Vargas" },
-  { "id": 2, "nombre": "Carlitos Mora" },
-  { "id": 3, "nombre": "Julio Cepeda" }
+  {
+    "id": 1,
+    "nombre": "Neider Vargas",
+    "email": "neider@artesanal.com",
+    "telefono": "0991234567",
+    "categoria": "accesorios",
+    "activo": true,
+    "descripcion": "Elaboro bolsos y carteras en cuero repujado a mano.",
+    "fechaRegistro": "2024-01-15"
+  },
+  {
+    "id": 2,
+    "nombre": "Carlitos Mora",
+    "email": "carlitos@artesanal.com",
+    "telefono": "0987654321",
+    "categoria": "alimentos",
+    "activo": true,
+    "descripcion": "Vendo mermeladas artesanales de frutas tropicales del Ecuador.",
+    "fechaRegistro": "2024-02-20"
+  },
+  {
+    "id": 3,
+    "nombre": "Julio Cepeda",
+    "email": "julio@artesanal.com",
+    "telefono": "0976543210",
+    "categoria": "ropa",
+    "activo": true,
+    "descripcion": "Confecciono ponchos y prendas tejidas a mano con lana de alpaca.",
+    "fechaRegistro": "2024-03-10"
+  },
+  {
+    "id": 4,
+    "nombre": "María Toapanta",
+    "email": "maria@artesanal.com",
+    "telefono": "0965432109",
+    "categoria": "ropa",
+    "activo": true,
+    "descripcion": "Diseño prendas únicas con bordados tradicionales otavaleños.",
+    "fechaRegistro": "2024-04-05"
+  },
+  {
+    "id": 5,
+    "nombre": "Rosa Chimbo",
+    "email": "rosa@artesanal.com",
+    "telefono": "0954321098",
+    "categoria": "otro",
+    "activo": false,
+    "descripcion": "Fabricante de instrumentos musicales andinos como quenas y zampoñas.",
+    "fechaRegistro": "2024-05-18"
+  }
 ]

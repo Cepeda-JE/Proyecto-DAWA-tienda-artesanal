@@ -1,9 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { VendedorService } from '../../../services/vendedor';
 import { Vendedor } from '../../../models/Vendedor';
 import { DialogoConfirmacion } from '../../shared/dialogo-confirmacion/dialogo-confirmacion';
+
+declare const bootstrap: any;
 
 @Component({
   selector: 'app-vendedor-crud',
@@ -16,14 +18,14 @@ export class VendedorCrudComponent implements OnInit {
   vendedores: Vendedor[] = [];
   vendedoresFiltrados: Vendedor[] = [];
   form: FormGroup;
-  modoEdicion = false;
-  idEditando: number | null = null;
-  @ViewChild('dialogo') dialogo!: DialogoConfirmacion;
-  idAEliminar: number | null = null;
-  mensajeExito = '';
-  mensajeError = '';
+  editingId: number | null = null;
+  modalRef: any;
+  vendedorAEliminar: any = null;
 
   categorias = ['ropa', 'accesorios', 'alimentos', 'otro'];
+
+  @ViewChild('vendedorModalRef') modalElement!: ElementRef;
+  @ViewChild('dialogoEliminar') dialogo!: DialogoConfirmacion;
 
   constructor(private fb: FormBuilder, private vendedorService: VendedorService) {
     this.form = this.fb.group({
@@ -45,6 +47,10 @@ export class VendedorCrudComponent implements OnInit {
     });
   }
 
+  ngAfterViewInit(): void {
+    this.modalRef = new bootstrap.Modal(this.modalElement.nativeElement);
+  }
+
   buscar(event: Event): void {
     const texto = (event.target as HTMLInputElement).value.toLowerCase();
     this.vendedoresFiltrados = this.vendedores.filter(v =>
@@ -54,58 +60,45 @@ export class VendedorCrudComponent implements OnInit {
     );
   }
 
+  openNew(): void {
+    this.editingId = null;
+    this.form.reset({ activo: true });
+    this.modalRef.show();
+  }
+
+  openEdit(vendedor: Vendedor): void {
+    this.editingId = vendedor.id;
+    this.form.patchValue(vendedor);
+    this.modalRef.show();
+  }
+
   guardar(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
-      this.mensajeError = 'Por favor completa todos los campos correctamente.';
       return;
     }
-
     const datos = this.form.value as Vendedor;
-
-    if (this.modoEdicion && this.idEditando !== null) {
-      this.vendedorService.update({ ...datos, id: this.idEditando });
-      this.mensajeExito = 'Vendedor actualizado correctamente.';
+    if (this.editingId !== null) {
+      this.vendedorService.update({ ...datos, id: this.editingId });
     } else {
       this.vendedorService.create(datos);
-      this.mensajeExito = 'Vendedor registrado correctamente.';
     }
-
-    this.vendedoresFiltrados = [...this.vendedorService['vendedores']];
     this.vendedores = [...this.vendedorService['vendedores']];
-    this.resetForm();
-    this.mensajeError = '';
-    setTimeout(() => this.mensajeExito = '', 3000);
+    this.vendedoresFiltrados = [...this.vendedores];
+    this.modalRef.hide();
   }
 
-  editar(vendedor: Vendedor): void {
-    this.modoEdicion = true;
-    this.idEditando = vendedor.id;
-    this.form.patchValue(vendedor);
-    this.mensajeError = '';
+  delete(vendedor: Vendedor): void {
+    this.vendedorAEliminar = vendedor;
+    this.dialogo.abrir();
   }
 
-  confirmarEliminar(id: number): void {
-  this.idAEliminar = id;
-  this.dialogo.abrir();
-  }
-
-  eliminar(): void {
-    if (this.idAEliminar !== null) {
-      this.vendedorService.delete(this.idAEliminar);
-      this.vendedores = [...this.vendedorService['vendedores']];
-      this.vendedoresFiltrados = [...this.vendedores];
-      this.mensajeExito = 'Vendedor eliminado correctamente.';
-      this.idAEliminar = null;
-    setTimeout(() => this.mensajeExito = '', 3000);
-    }
-  }
-
-  resetForm(): void {
-    this.form.reset({ activo: true });
-    this.modoEdicion = false;
-    this.idEditando = null;
-    this.mensajeError = '';
+  confirmarEliminar(): void {
+    if (!this.vendedorAEliminar) return;
+    this.vendedorService.delete(this.vendedorAEliminar.id);
+    this.vendedores = [...this.vendedorService['vendedores']];
+    this.vendedoresFiltrados = [...this.vendedores];
+    this.vendedorAEliminar = null;
   }
 
   get f() { return this.form.controls; }

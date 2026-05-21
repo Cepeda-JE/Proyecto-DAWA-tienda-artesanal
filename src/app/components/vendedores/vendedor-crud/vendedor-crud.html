@@ -1,155 +1,154 @@
 <div class="container-fluid mt-3">
 
-  <!-- Encabezado -->
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2>Gestión de Vendedores</h2>
-    <button class="btn btn-success" (click)="openNew()">
-      + Nuevo Vendedor
-    </button>
-  </div>
+    <!-- Encabezado -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Gestión de Vendedores</h2>
+        <div>
+            <a routerLink="/vendedores-lista" class="btn btn-outline-secondary me-2">
+                <i class="fas fa-th-large me-1"></i> Ver Lista
+            </a>
+            <button class="btn btn-success" (click)="openNew()">
+                + Nuevo Vendedor
+            </button>
+        </div>
+    </div>
 
-  <!-- Buscador -->
-  <input type="text" class="form-control mb-3"
-    placeholder="Buscar por nombre, email o categoría..."
-    (input)="buscar($event)">
+    <!-- Buscador -->
+    <input type="text" class="form-control mb-3" placeholder="Buscar por nombre, email o categoría..."
+        (input)="buscar($event)">
 
-  <!-- Tabla -->
-  <table class="table table-bordered table-hover">
-    <thead class="table-dark">
-      <tr>
-        <th>Nombre</th>
-        <th>Email</th>
-        <th>Teléfono</th>
-        <th>Categoría</th>
-        <th>Estado</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (v of vendedoresFiltrados; track v.id) {
-        <tr>
-          <td>{{ v.nombre }}</td>
-          <td>{{ v.email }}</td>
-          <td>{{ v.telefono }}</td>
-          <td>{{ v.categoria }}</td>
-          <td>{{ v.activo ? 'Sí' : 'No' }}</td>
-          <td>
-            <button class="btn btn-primary btn-sm me-1" style="width: 95px;" (click)="openEdit(v)">
-  <i class="fas fa-pen me-1"></i>Editar
-</button>
-<button class="btn btn-danger btn-sm" style="width: 95px;" (click)="delete(v)">
-  <i class="fas fa-trash me-1"></i>Eliminar
-</button>
-          </td>
-        </tr>
-      }
-    </tbody>
-  </table>
+    <!-- Tabla -->
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Categoría</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (v of vendedoresFiltrados; track v.id) {
+            <tr>
+                <td>{{ v.nombre }}</td>
+                <td>{{ v.email }}</td>
+                <td>{{ v.telefono }}</td>
+                <td>{{ v.categoria }}</td>
+                <td>{{ v.activo ? 'Sí' : 'No' }}</td>
+                <td>
+                    <button class="btn btn-primary btn-sm me-1" style="width: 95px;" (click)="openEdit(v)">
+                        <i class="fas fa-pen me-1"></i>Editar
+                    </button>
+                    <button class="btn btn-danger btn-sm" style="width: 95px;" (click)="delete(v)">
+                        <i class="fas fa-trash me-1"></i>Eliminar
+                    </button>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
 </div>
 
 <!-- MODAL -->
 <div class="modal fade" tabindex="-1" #vendedorModalRef>
-  <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
-      <div class="modal-header">
-        <h5 class="modal-title">
-          {{ editingId ? 'Editar Vendedor' : 'Nuevo Vendedor' }}
-        </h5>
-        <button type="button" class="btn-close" (click)="modalRef.hide()"></button>
-      </div>
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    {{ editingId ? 'Editar Vendedor' : 'Nuevo Vendedor' }}
+                </h5>
+                <button type="button" class="btn-close" (click)="modalRef.hide()"></button>
+            </div>
 
-      <form [formGroup]="form" (ngSubmit)="guardar()">
-        <div class="modal-body">
+            <form [formGroup]="form" (ngSubmit)="guardar()">
+                <div class="modal-body">
 
-          <!-- NOMBRE -->
-          <div class="mb-3">
-            <label class="form-label">Nombre</label>
-            <input type="text" class="form-control" formControlName="nombre">
-            @if(f['nombre'].touched && f['nombre'].invalid) {
-              @if(f['nombre'].errors?.['required']) {
-                <div class="text-danger">El nombre es requerido</div>
-              }
-              @if(f['nombre'].errors?.['minlength']) {
-                <div class="text-danger">Mínimo 3 caracteres</div>
-              }
-            }
-          </div>
+                    <!-- NOMBRE -->
+                    <div class="mb-3">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" class="form-control" formControlName="nombre">
+                        @if(f['nombre'].touched && f['nombre'].invalid) {
+                        @if(f['nombre'].errors?.['required']) {
+                        <div class="text-danger">El nombre es requerido</div>
+                        }
+                        @if(f['nombre'].errors?.['minlength']) {
+                        <div class="text-danger">Mínimo 3 caracteres</div>
+                        }
+                        }
+                    </div>
 
-          <!-- EMAIL -->
-          <div class="mb-3">
-            <label class="form-label">Email</label>
-            <input type="email" class="form-control" formControlName="email">
-            @if(f['email'].touched && f['email'].invalid) {
-              <div class="text-danger">Ingresa un email válido</div>
-            }
-          </div>
+                    <!-- EMAIL -->
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" formControlName="email">
+                        @if(f['email'].touched && f['email'].invalid) {
+                        <div class="text-danger">Ingresa un email válido</div>
+                        }
+                    </div>
 
-          <!-- TELÉFONO -->
-          <div class="mb-3">
-            <label class="form-label">Teléfono</label>
-            <input type="text" class="form-control" formControlName="telefono">
-            @if(f['telefono'].touched && f['telefono'].invalid) {
-              <div class="text-danger">Debe tener exactamente 10 dígitos</div>
-            }
-          </div>
+                    <!-- TELÉFONO -->
+                    <div class="mb-3">
+                        <label class="form-label">Teléfono</label>
+                        <input type="text" class="form-control" formControlName="telefono">
+                        @if(f['telefono'].touched && f['telefono'].invalid) {
+                        <div class="text-danger">Debe tener exactamente 10 dígitos</div>
+                        }
+                    </div>
 
-          <!-- CATEGORÍA -->
-          <div class="mb-3">
-            <label class="form-label">Categoría</label>
-            <select class="form-select" formControlName="categoria">
-              <option value="">Seleccione...</option>
-              @for(cat of categorias; track $index) {
-                <option [value]="cat">{{ cat }}</option>
-              }
-            </select>
-            @if(f['categoria'].touched && f['categoria'].invalid) {
-              <div class="text-danger">Selecciona una categoría</div>
-            }
-          </div>
+                    <!-- CATEGORÍA -->
+                    <div class="mb-3">
+                        <label class="form-label">Categoría</label>
+                        <select class="form-select" formControlName="categoria">
+                            <option value="">Seleccione...</option>
+                            @for(cat of categorias; track $index) {
+                            <option [value]="cat">{{ cat }}</option>
+                            }
+                        </select>
+                        @if(f['categoria'].touched && f['categoria'].invalid) {
+                        <div class="text-danger">Selecciona una categoría</div>
+                        }
+                    </div>
 
-          <!-- FECHA -->
-          <div class="mb-3">
-            <label class="form-label">Fecha de Registro</label>
-            <input type="date" class="form-control" formControlName="fechaRegistro">
-            @if(f['fechaRegistro'].touched && f['fechaRegistro'].invalid) {
-              <div class="text-danger">La fecha es obligatoria</div>
-            }
-          </div>
+                    <!-- FECHA -->
+                    <div class="mb-3">
+                        <label class="form-label">Fecha de Registro</label>
+                        <input type="date" class="form-control" formControlName="fechaRegistro">
+                        @if(f['fechaRegistro'].touched && f['fechaRegistro'].invalid) {
+                        <div class="text-danger">La fecha es obligatoria</div>
+                        }
+                    </div>
 
-          <!-- DESCRIPCIÓN -->
-          <div class="mb-3">
-            <label class="form-label">Descripción</label>
-            <textarea class="form-control" rows="3" formControlName="descripcion"></textarea>
-            @if(f['descripcion'].touched && f['descripcion'].invalid) {
-              <div class="text-danger">Mínimo 10 caracteres</div>
-            }
-          </div>
+                    <!-- DESCRIPCIÓN -->
+                    <div class="mb-3">
+                        <label class="form-label">Descripción</label>
+                        <textarea class="form-control" rows="3" formControlName="descripcion"></textarea>
+                        @if(f['descripcion'].touched && f['descripcion'].invalid) {
+                        <div class="text-danger">Mínimo 10 caracteres</div>
+                        }
+                    </div>
 
-          <!-- ACTIVO -->
-          <div class="form-check mb-3">
-            <input class="form-check-input" type="checkbox"
-              formControlName="activo" id="checkActivo">
-            <label class="form-check-label" for="checkActivo">Activo</label>
-          </div>
+                    <!-- ACTIVO -->
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" formControlName="activo" id="checkActivo">
+                        <label class="form-check-label" for="checkActivo">Activo</label>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit">Guardar</button>
+                    <button class="btn btn-secondary" type="button" (click)="modalRef.hide()">Cancelar</button>
+                </div>
+            </form>
 
         </div>
-        <div class="modal-footer">
-          <button class="btn btn-primary" type="submit">Guardar</button>
-          <button class="btn btn-secondary" type="button" (click)="modalRef.hide()">Cancelar</button>
-        </div>
-      </form>
-
     </div>
-  </div>
 </div>
 
 <!-- Diálogo de confirmación -->
-<app-dialogo-confirmacion
-  #dialogoEliminar
-  titulo="Eliminar Vendedor"
-  [mensaje]="'¿Deseas eliminar a ' + (vendedorAEliminar?.nombre || '') + '?'"
-  textoBtnConfirmar="Sí, eliminar"
-  (confirmado)="confirmarEliminar()"
-  (cancelado)="vendedorAEliminar = null">
+<app-dialogo-confirmacion #dialogoEliminar titulo="Eliminar Vendedor"
+    [mensaje]="'¿Deseas eliminar a ' + (vendedorAEliminar?.nombre || '') + '?'" textoBtnConfirmar="Sí, eliminar"
+    (confirmado)="confirmarEliminar()" (cancelado)="vendedorAEliminar = null">
 </app-dialogo-confirmacion>

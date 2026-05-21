@@ -4,13 +4,14 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { VendedorService } from '../../../services/vendedor';
 import { Vendedor } from '../../../models/Vendedor';
 import { DialogoConfirmacion } from '../../shared/dialogo-confirmacion/dialogo-confirmacion';
+import { RouterLink } from '@angular/router';
 
 declare const bootstrap: any;
 
 @Component({
   selector: 'app-vendedor-crud',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, DialogoConfirmacion],
+  imports: [CommonModule, ReactiveFormsModule, DialogoConfirmacion, RouterLink],
   templateUrl: './vendedor-crud.html',
   styleUrl: './vendedor-crud.css'
 })

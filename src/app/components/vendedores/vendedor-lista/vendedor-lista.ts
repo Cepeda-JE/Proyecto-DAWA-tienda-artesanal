@@ -10,7 +10,7 @@ import { Vendedor } from '../../../models/Vendedor';
   templateUrl: './vendedor-lista.html',
   styleUrl: './vendedor-lista.css'
 })
-export class VendedorListaComponent implements OnInit {
+export class VendedorLista implements OnInit {
   vendedores: Vendedor[] = [];
 
   constructor(private vendedorService: VendedorService) {}

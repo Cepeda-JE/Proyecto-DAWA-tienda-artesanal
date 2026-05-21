@@ -1,0 +1,30 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Nuestros Vendedores</h2>
+
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col" *ngFor="let v of vendedores">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">{{ v.nombre }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{ v.email }}</h6>
+          <p class="card-text">{{ v.descripcion }}</p>
+        </div>
+        <div class="card-footer d-flex justify-content-between align-items-center">
+          <span class="badge {{ getBadgeColor(v.categoria) }}">
+            {{ v.categoria | titlecase }}
+          </span>
+          <span class="badge"
+            [class.bg-success]="v.activo"
+            [class.bg-danger]="!v.activo">
+            {{ v.activo ? 'Activo' : 'Inactivo' }}
+          </span>
+          <small class="text-muted">{{ v.fechaRegistro }}</small>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="vendedores.length === 0" class="col">
+      <p class="text-muted">No hay vendedores registrados.</p>
+    </div>
+  </div>
+</div>

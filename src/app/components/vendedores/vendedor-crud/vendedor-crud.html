@@ -1,0 +1,153 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Gestión de Vendedores</h2>
+
+  <!-- Alertas -->
+  <div *ngIf="mensajeExito" class="alert alert-success alert-dismissible">
+    {{ mensajeExito }}
+  </div>
+  <div *ngIf="mensajeError" class="alert alert-danger alert-dismissible">
+    {{ mensajeError }}
+  </div>
+
+  <!-- Formulario -->
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header bg-primary text-white">
+      {{ modoEdicion ? '✏️ Editar Vendedor' : '➕ Nuevo Vendedor' }}
+    </div>
+    <div class="card-body">
+      <form [formGroup]="form" (ngSubmit)="guardar()">
+        <div class="row g-3">
+
+          <div class="col-md-6">
+            <label class="form-label">Nombre *</label>
+            <input type="text" class="form-control" formControlName="nombre"
+              [class.is-invalid]="f['nombre'].invalid && f['nombre'].touched">
+            <div class="invalid-feedback">Mínimo 3 caracteres requeridos.</div>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Email *</label>
+            <input type="email" class="form-control" formControlName="email"
+              [class.is-invalid]="f['email'].invalid && f['email'].touched">
+            <div class="invalid-feedback">Ingresa un email válido.</div>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Teléfono *</label>
+            <input type="text" class="form-control" formControlName="telefono"
+              [class.is-invalid]="f['telefono'].invalid && f['telefono'].touched">
+            <div class="invalid-feedback">Debe tener exactamente 10 dígitos.</div>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Categoría *</label>
+            <select class="form-select" formControlName="categoria"
+              [class.is-invalid]="f['categoria'].invalid && f['categoria'].touched">
+              <option value="">-- Selecciona una categoría --</option>
+              <option *ngFor="let cat of categorias" [value]="cat">
+                {{ cat | titlecase }}
+              </option>
+            </select>
+            <div class="invalid-feedback">Selecciona una categoría.</div>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Fecha de Registro *</label>
+            <input type="date" class="form-control" formControlName="fechaRegistro"
+              [class.is-invalid]="f['fechaRegistro'].invalid && f['fechaRegistro'].touched">
+            <div class="invalid-feedback">La fecha es obligatoria.</div>
+          </div>
+
+          <div class="col-md-10">
+            <label class="form-label">Descripción *</label>
+            <textarea class="form-control" rows="2" formControlName="descripcion"
+              [class.is-invalid]="f['descripcion'].invalid && f['descripcion'].touched">
+            </textarea>
+            <div class="invalid-feedback">Mínimo 10 caracteres.</div>
+          </div>
+
+          <div class="col-md-2 d-flex align-items-end pb-2">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox"
+                formControlName="activo" id="activo">
+              <label class="form-check-label" for="activo">Activo</label>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="mt-3">
+          <button type="submit" class="btn btn-primary me-2">
+            {{ modoEdicion ? 'Actualizar' : 'Guardar' }}
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="resetForm()">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Buscador -->
+  <div class="mb-3">
+    <input type="text" class="form-control"
+      placeholder="🔍 Buscar por nombre, email o categoría..."
+      (input)="buscar($event)">
+  </div>
+
+  <!-- Tabla -->
+  <div class="table-responsive">
+    <table class="table table-striped table-hover align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Teléfono</th>
+          <th>Categoría</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let v of vendedoresFiltrados">
+          <td>{{ v.id }}</td>
+          <td>{{ v.nombre }}</td>
+          <td>{{ v.email }}</td>
+          <td>{{ v.telefono }}</td>
+          <td>
+            <span class="badge bg-secondary">{{ v.categoria | titlecase }}</span>
+          </td>
+          <td>
+            <span class="badge"
+              [class.bg-success]="v.activo"
+              [class.bg-danger]="!v.activo">
+              {{ v.activo ? 'Activo' : 'Inactivo' }}
+            </span>
+          </td>
+          <td>
+            <button class="btn btn-sm btn-warning me-1" (click)="editar(v)">
+              Editar
+            </button>
+            <button class="btn btn-sm btn-danger" (click)="confirmarEliminar(v.id)">
+            Eliminar
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="vendedoresFiltrados.length === 0">
+          <td colspan="7" class="text-center text-muted py-3">
+            No se encontraron vendedores.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <app-dialogo-confirmacion
+  #dialogo
+  titulo="Eliminar Vendedor"
+  mensaje="¿Estás seguro de que deseas eliminar este vendedor? Esta acción no se puede deshacer."
+  textoBtnConfirmar="Sí, eliminar"
+  textoBtnCancelar="Cancelar"
+  (confirmado)="eliminar()"
+></app-dialogo-confirmacion>
+</div>

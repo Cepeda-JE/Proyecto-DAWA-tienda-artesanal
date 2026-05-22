@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "numeroPedido": "PED-001",
+    "clienteId": 1,
+    "productoId": 1,
+    "cantidad": 2,
+    "fecha": "2024-01-20",
+    "estado": "entregado",
+    "total": 70.00,
+    "notas": "Entregar en horario de mañana"
+  },
+  {
+    "id": 2,
+    "numeroPedido": "PED-002",
+    "clienteId": 2,
+    "productoId": 3,
+    "cantidad": 1,
+    "fecha": "2024-02-15",
+    "estado": "enviado",
+    "total": 8.50,
+    "notas": ""
+  },
+  {
+    "id": 3,
+    "numeroPedido": "PED-003",
+    "clienteId": 3,
+    "productoId": 5,
+    "cantidad": 1,
+    "fecha": "2024-03-10",
+    "estado": "pendiente",
+    "total": 55.00,
+    "notas": "Cliente pidió empaque especial"
+  }
+]

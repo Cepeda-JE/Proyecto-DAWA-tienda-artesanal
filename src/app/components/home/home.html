@@ -1,36 +1,152 @@
 <div class="container mt-5 text-center">
-
-  <h1 class="display-4 fw-bold">Tienda Artesanal</h1>
-  <p class="lead text-muted">
-    Descubre productos únicos elaborados por artesanos ecuatorianos
-  </p>
-  <hr>
-
-  <div class="row mt-4">
-    <div class="col-md-4 mb-3">
-      <div class="card h-100 shadow-sm">
-        <div class="card-body">
-          <h5 class="card-title">Ropa</h5>
-          <p class="card-text">Prendas únicas con diseños tradicionales</p>
-        </div>
+  <!-- CARRUCEL -->
+  <div id="carouselArtesanal" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselArtesanal" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselArtesanal" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselArtesanal" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active" data-bs-interval="2000">
+      <img src="https://i.pinimg.com/736x/87/3e/9e/873e9ef55846a61d06671c9a078941a1.jpg" class="d-block w-100 carousel-img" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5 class="carousel-title" >Ropa Artesanal Ecuatoriana</h5>
+        <p class="carousel-text">Descubre prendas bordadas, ponchos y tejidos tradicionales.</p>
+        <button class="btn btn-artesanal btn-lg mt-2" routerLink="/catalogo" [queryParams]="{ categoria: 'ropa' }">
+          Ver Ropa
+        </button>
       </div>
     </div>
-    <div class="col-md-4 mb-3">
-      <div class="card h-100 shadow-sm">
-        <div class="card-body">
-          <h5 class="card-title">Accesorios</h5>
-          <p class="card-text">Joyería y accesorios artesanales</p>
-        </div>
+    <div class="carousel-item" data-bs-interval="2000">
+      <img src="https://i1-e.pinimg.com/736x/fb/ad/be/fbadbec447b0d4d020a1917b722c03c4.jpg" class="d-block w-100 carousel-img" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5 class="carousel-title">Accesorios Artesanales</h5>
+        <p class="carousel-text">Bolsos, collares y accesorios hechos a mano.</p>
+        <button class="btn btn-artesanal btn-lg mt-2" routerLink="/catalogo" [queryParams]="{ categoria: 'accesorios' }">
+          Ver Accesorios
+        </button>
       </div>
     </div>
-    <div class="col-md-4 mb-3">
-      <div class="card h-100 shadow-sm">
-        <div class="card-body">
-          <h5 class="card-title">Alimentos</h5>
-          <p class="card-text">Productos naturales y artesanales</p>
+    <div class="carousel-item" data-bs-interval="2000">
+      <img src="https://i1-e.pinimg.com/1200x/63/d2/d5/63d2d5b50f9ffdd6e9429dacaa6e589e.jpg" class="d-block w-100 carousel-img" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5 class="carousel-title">Sabores Artesanales</h5>
+        <p class="carousel-text">Mermeladas, dulces y productos elaborados artesanalmente.</p>
+        <button class="btn btn-artesanal_ali btn-lg mt-2" routerLink="/catalogo" [queryParams]="{ categoria: 'alimentos' }">
+          Ver Alimentos
+        </button>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselArtesanal" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselArtesanal" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<br/>
+<section class="hero-section text-center">
+  <div class="container">
+    <h1 class="hero-title">
+      Descubre el arte hecho a mano
+    </h1>
+    <p class="hero-text">
+      Explora ropa, accesorios y alimentos artesanales
+      creados por emprendedores ecuatorianos.
+    </p>
+    <a
+      routerLink="/catalogo"
+      class="btn btn-artesanal">
+
+      Explorar Catálogo
+    </a>
+  </div>
+</section>
+
+<!--CONTENEDORES -->
+<section class="container mt-4">
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="categoria-card">
+        <div class="categoria-icon">
+          👕
+        </div>
+        <h4>Ropa Artesanal</h4>
+        <p>
+          Prendas bordadas, tejidos y
+          diseños tradicionales.
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="categoria-card">
+        <div class="categoria-icon">
+          💍
+        </div>
+        <h4>Accesorios</h4>
+        <p>
+          Collares, bolsos y joyería
+          artesanal ecuatoriana.
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="categoria-card">
+        <div class="categoria-icon">
+          🍯
+        </div>
+        <h4>Alimentos</h4>
+        <p>
+          Productos naturales y sabores
+          artesanales únicos.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+  
+<section class="beneficios-section">
+  <div class="container text-center">
+    <h2 class="mb-4">
+      ¿Por qué comprar aquí?
+    </h2>
+
+    <div class="row g-4">
+
+      <div class="col-md-3">
+        <div class="beneficio-card">
+          <h5>Hecho a Mano</h5>
+          <p>Productos únicos y auténticos.</p>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="beneficio-card">
+          <h5>Apoyo Local</h5>
+          <p>Impulsamos emprendedores ecuatorianos.</p>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="beneficio-card">
+
+          <h5>Entrega Segura</h5>
+          <p>Pedidos confiables y protegidos.</p>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="beneficio-card">
+          <h5>Calidad</h5>
+          <p>Productos seleccionados cuidadosamente.</p>
         </div>
       </div>
     </div>
   </div>
-
-</div>
+</section>

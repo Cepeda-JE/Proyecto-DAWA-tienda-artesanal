@@ -1,0 +1,180 @@
+
+<div class="container-fluid mt-3">
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Gestión de Pedidos</h2>
+    <button class="btn btn-success" (click)="openNew()">
+      + Nuevo Pedido
+    </button>
+  </div>
+
+  <input type="text" class="form-control mb-3"
+    placeholder="Buscar por número o estado..."
+    #busq (keyup)="search(busq)">
+
+  <table class="table table-bordered table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>N° Pedido</th>
+        <th>Cliente</th>
+        <th>Producto</th>
+        <th>Cantidad</th>
+        <th>Fecha</th>
+        <th>Estado</th>
+        <th>Total</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(p of pedidosDetalle(); track p.id) {
+        <tr>
+          <td>{{ p.numeroPedido }}</td>
+          <td>{{ p.clienteNombre }}</td>
+          <td>{{ p.productoNombre }}</td>
+          <td>{{ p.cantidad }}</td>
+          <td>{{ p.fecha }}</td>
+          <td>
+            <span class="badge {{ getBadgeEstado(p.estado) }}">
+              {{ p.estado }}
+            </span>
+          </td>
+          <td>$ {{ p.total }}</td>
+          <td>
+            <button class="btn btn-primary btn-sm me-1" (click)="openEdit(p)">
+              <i class="bi bi-pencil-square"></i> Editar
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="delete(p)">
+              <i class="bi bi-trash3"></i> Eliminar
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal fade" tabindex="-1" #pedidoModalRef>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">
+          {{ editingId ? 'Editar Pedido' : 'Nuevo Pedido' }}
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <form [formGroup]="formPedido" (submit)="save()">
+        <div class="modal-body">
+          <div class="row">
+
+            <!-- NÚMERO PEDIDO -->
+            <div class="col-md-6 mb-3">
+              <label class="form-label">N° Pedido</label>
+              <input type="text" class="form-control" formControlName="numeroPedido" />
+              @if(formPedido.get('numeroPedido')?.touched && formPedido.get('numeroPedido')?.invalid) {
+                <div class="text-danger">El número de pedido es requerido</div>
+              }
+            </div>
+
+            <!-- FECHA -->
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Fecha</label>
+              <input type="date" class="form-control" formControlName="fecha" />
+              @if(formPedido.get('fecha')?.touched && formPedido.get('fecha')?.invalid) {
+                <div class="text-danger">La fecha es requerida</div>
+              }
+            </div>
+
+            <!-- CLIENTE -->
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Cliente</label>
+              <select class="form-select" formControlName="clienteId">
+                <option value="">Seleccione...</option>
+                @for(c of clientes(); track c.id) {
+                  <option [value]="c.id">{{ c.nombre }}</option>
+                }
+              </select>
+              @if(formPedido.get('clienteId')?.touched && formPedido.get('clienteId')?.invalid) {
+                <div class="text-danger">Selecciona un cliente</div>
+              }
+            </div>
+
+            <!-- PRODUCTO -->
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Producto</label>
+              <select class="form-select" formControlName="productoId">
+                <option value="">Seleccione...</option>
+                @for(p of productos(); track p.id) {
+                  <option [value]="p.id">{{ p.nombre }}</option>
+                }
+              </select>
+              @if(formPedido.get('productoId')?.touched && formPedido.get('productoId')?.invalid) {
+                <div class="text-danger">Selecciona un producto</div>
+              }
+            </div>
+
+            <!-- CANTIDAD -->
+            <div class="col-md-4 mb-3">
+              <label class="form-label">Cantidad</label>
+              <input type="number" class="form-control" formControlName="cantidad" />
+              @if(formPedido.get('cantidad')?.touched && formPedido.get('cantidad')?.invalid) {
+                <div class="text-danger">Ingresa una cantidad válida (mínimo 1)</div>
+              }
+            </div>
+
+            <!-- TOTAL -->
+            <div class="col-md-4 mb-3">
+              <label class="form-label">Total ($)</label>
+              <input type="number" class="form-control" formControlName="total" />
+              @if(formPedido.get('total')?.touched && formPedido.get('total')?.invalid) {
+                <div class="text-danger">Ingresa un total válido</div>
+              }
+            </div>
+
+            <!-- ESTADO -->
+            <div class="col-md-4 mb-3">
+              <label class="form-label">Estado</label>
+              <select class="form-select" formControlName="estado">
+                <option value="">Seleccione...</option>
+                @for(e of estados; track $index) {
+                  <option [value]="e">{{ e | titlecase }}</option>
+                }
+              </select>
+              @if(formPedido.get('estado')?.touched && formPedido.get('estado')?.invalid) {
+                <div class="text-danger">Selecciona un estado</div>
+              }
+            </div>
+
+            <!-- NOTAS -->
+            <div class="col-12 mb-3">
+              <label class="form-label">Notas</label>
+              <textarea class="form-control" formControlName="notas" rows="2"
+                placeholder="Observaciones adicionales..."></textarea>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-primary" type="submit">Guardar</button>
+          <button class="btn btn-secondary" type="button"
+            (click)="modalRef.hide()">Cancelar</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<!-- Diálogo reutilizable -->
+<app-dialogo-confirmacion
+  #dialogoEliminar
+  titulo="Eliminar Pedido"
+  [mensaje]="'¿Deseas eliminar el pedido ' + (pedidoAEliminar?.numeroPedido || '') + '?'"
+  textoBtnConfirmar="Sí, eliminar"
+  (confirmado)="confirmarEliminar()"
+  (cancelado)="pedidoAEliminar = null">
+</app-dialogo-confirmacion>

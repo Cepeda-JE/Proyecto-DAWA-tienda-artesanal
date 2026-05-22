@@ -1,0 +1,126 @@
+/* -------------- IMAGEN CAROUSEL-----------*/
+.carousel-img {
+    height: 650px;
+    object-fit: cover;
+}
+
+/*--------------TEXTO CAROUSEL----------*/
+.carousel-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.carousel-text {
+    font-size: 1.5rem;
+    max-width: 700px;
+    margin: auto;
+}
+
+
+/*-------------------- BOTON CAROUSEL -----------*/
+.btn-artesanal_ali {
+    background: linear-gradient(135deg, #476D4A,#5E8C61 );
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 28px;
+    font-weight: bold;
+    transition: 0.3s ease;
+    font-size: 1.2rem;
+}
+
+.btn-artesanal_ali:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.btn-artesanal {
+    background: linear-gradient(135deg, #8B5E3C, #B08968);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 28px;
+    font-weight: bold;
+    transition: 0.3s ease;
+    font-size: 1.2rem;
+}
+
+.btn-artesanal:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+/* HERO */
+
+.hero-section {
+    padding: 60px 20px 30px;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #2d3748;
+}
+
+.hero-text {
+    font-size: 1.2rem;
+    color: #6b7280;
+    max-width: 700px;
+    margin: auto;
+}
+
+/* botón */
+.btn-artesanal {
+    margin-top: 20px;
+    background: #c48a5a;
+    color: white;
+    border-radius: 40px;
+    padding: 12px 28px;
+    font-weight: 600;
+    transition: .3s;
+}
+
+.btn-artesanal:hover {
+    background: #ad7348;
+    transform: translateY(-2px);
+}
+
+/* categorías */
+
+.categoria-card {
+    background: white;
+    border-radius: 24px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,.08);
+    transition: .3s ease;
+    height: 100%;
+}
+
+.categoria-card:hover {
+    transform: translateY(-8px);
+}
+
+.categoria-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+/* beneficios */
+
+.beneficios-section {
+    padding: 80px 20px;
+}
+
+.beneficio-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 18px rgba(0,0,0,.07);
+    transition: .3s;
+    height: 100%;
+}
+
+.beneficio-card:hover {
+    transform: translateY(-6px);
+}

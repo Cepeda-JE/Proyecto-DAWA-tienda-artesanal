@@ -6,7 +6,7 @@
     "precio": 35.00,
     "categoria": "accesorios",
     "stock": 10,
-    "imagen": "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400",
+    "imagen": "https://i5.walmartimages.com/asr/6af1b162-f6dc-4bbf-b1df-0acfc8388d5a.3d0a11aee25b7fd718fe0d2b844a8283.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF",
     "vendedorId": 1,
     "disponible": true
   },
@@ -17,7 +17,7 @@
     "precio": 25.00,
     "categoria": "ropa",
     "stock": 15,
-    "imagen": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400",
+    "imagen": "https://ecuadorstores.com/wp-content/uploads/2020/05/White-Embroidered-Ethnic-Shirt-for-Men-Artisan-Handmade-Clothing.webp",
     "vendedorId": 1,
     "disponible": true
   },
@@ -28,7 +28,7 @@
     "precio": 8.50,
     "categoria": "alimentos",
     "stock": 30,
-    "imagen": "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=400",
+    "imagen": "https://mejorconsalud.as.com/wp-content/uploads/2018/09/mermelada-mora-salsa.jpg",
     "vendedorId": 2,
     "disponible": true
   },
@@ -39,7 +39,7 @@
     "precio": 18.00,
     "categoria": "accesorios",
     "stock": 20,
-    "imagen": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400",
+    "imagen": "https://img.kwcdn.com/product/fancy/ef70905b-03f1-4b29-a3fd-a775c1634df1.jpg?imageMogr2/auto-orient%7CimageView2/2/w/800/q/70/format/webp",
     "vendedorId": 2,
     "disponible": true
   },
@@ -50,7 +50,7 @@
     "precio": 55.00,
     "categoria": "ropa",
     "stock": 8,
-    "imagen": "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=400",
+    "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0b4QAq5tWJQKIf7vPtIdhw73KM3vObsTzkQ&s",
     "vendedorId": 3,
     "disponible": true
   }

@@ -1,0 +1,42 @@
+<div class="mat-elevation-z8">
+  <table mat-table matSort [dataSource]="dataSource">
+
+    @for (col of columns(); track $index) {
+    <ng-container matColumnDef="{{ col.def }}">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="!col.isSortable">{{ col.label }} </th>
+      <td mat-cell *matCellDef="let row; let i = index">
+        
+        @if(col.template){ 
+          <ng-container 
+            *ngTemplateOutlet="
+              col.template; 
+              context: { $implicit: row, index: i }">
+          </ng-container>
+        }@else {
+          {{ col ?.content(row) }}
+        }
+
+
+      </td>
+    </ng-container>
+  }
+
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns();"></tr>
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" [attr.colspan]="displayedColumns().length">
+        @if (isloading()){
+          Loading...
+        }@else{
+        No data
+        }
+      </td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                showFirstLastButtons
+                aria-label="Select page of periodic elements">
+  </mat-paginator>
+</div>

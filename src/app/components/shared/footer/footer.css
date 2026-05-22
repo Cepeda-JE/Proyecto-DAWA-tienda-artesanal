@@ -1,0 +1,17 @@
+.footer {
+  background: #1f2937;
+  color: #9ca3af;
+  padding: 18px 30px;
+  font-size: 0.85rem;
+  border-top: 1px solid #374151;
+}
+
+.footer-brand {
+  color: #c48a5a;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.footer-text {
+  color: #9ca3af;
+}

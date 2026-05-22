@@ -1,0 +1,208 @@
+<div class="container mt-4">
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+
+            <h2 class="mb-4 text-center">
+                Gestión de Clientes
+            </h2>
+
+            <form [formGroup]="formCustomer">
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">
+                            Nombre
+                        </label>
+
+                        <input type="text" class="form-control" placeholder="Ingrese nombre" formControlName="nombre">
+
+                        @if (
+                        formCustomer.get('nombre')?.invalid &&
+                        formCustomer.get('nombre')?.touched
+                        ) {
+                        <small class="text-danger">
+                            El nombre es obligatorio
+                        </small>
+                        }
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">
+                            Apellido
+                        </label>
+
+                        <input type="text" class="form-control" placeholder="Ingrese apellido"
+                            formControlName="apellido">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">
+                            Correo
+                        </label>
+
+                        <input type="email" class="form-control" placeholder="Ingrese correo" formControlName="correo">
+
+                        @if (
+                        formCustomer.get('correo')?.hasError('required')
+                        &&
+                        formCustomer.get('correo')?.touched
+                        ) {
+                        <small class="text-danger">
+                            El correo es obligatorio
+                        </small>
+                        }
+
+                        @if (
+                        formCustomer.get('correo')?.hasError('email')
+                        &&
+                        formCustomer.get('correo')?.touched
+                        ) {
+                        <small class="text-danger">
+                            Correo inválido
+                        </small>
+                        }
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">
+                            Teléfono
+                        </label>
+
+                        <input type="text" class="form-control" placeholder="Ingrese teléfono"
+                            formControlName="telefono">
+
+                        @if (
+                        formCustomer.get('telefono')?.hasError('pattern')
+                        &&
+                        formCustomer.get('telefono')?.touched
+                        ) {
+                        <small class="text-danger">
+                            El teléfono debe tener 10 dígitos
+                        </small>
+                        }
+                    </div>
+
+                    <div class="col-12 mb-3">
+                        <label class="form-label">
+                            Dirección
+                        </label>
+
+                        <input type="text" class="form-control" placeholder="Ingrese dirección"
+                            formControlName="direccion">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">
+                            Ciudad
+                        </label>
+
+                        <select class="form-select" formControlName="ciudad">
+
+                            <option value="">
+                                Seleccione ciudad
+                            </option>
+
+                            @for (ciudad of ciudades; track ciudad) {
+                            <option [value]="ciudad">
+                                {{ ciudad }}
+                            </option>
+                            }
+
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">
+                            Contraseña
+                        </label>
+
+                        <input type="password" class="form-control" placeholder="Ingrese contraseña"
+                            formControlName="password">
+
+                        @if (
+                        formCustomer.get('password')?.hasError('minlength')
+                        &&
+                        formCustomer.get('password')?.touched
+                        ) {
+                        <small class="text-danger">
+                            La contraseña debe tener mínimo 6 caracteres
+                        </small>
+                        }
+
+                    </div>
+
+                    <div class="col-12 mb-3">
+                        <div class="form-check">
+
+                            <input type="checkbox" class="form-check-input" formControlName="activo" id="activo">
+
+                            <label class="form-check-label" for="activo">
+
+                                Cliente activo
+
+                            </label>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="d-flex gap-2">
+
+                    <button type="button" class="btn btn-success" (click)="onSaveCustomer()">
+
+                        {{
+                        isEditMode
+                        ? 'Actualizar Cliente'
+                        : 'Guardar Cliente'
+                        }}
+
+                    </button>
+
+                    @if (isEditMode) {
+
+                    <button type="button" class="btn btn-outline-secondary" (click)="onCancelEdit()">
+
+                        Cancelar
+
+                    </button>
+
+                    }
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <div class="mt-4">
+
+        <h4 class="mb-3">
+            Buscar Cliente
+        </h4>
+
+        <input type="text" class="form-control mb-4" placeholder="Buscar cliente..." (input)="searchCustomer($event)">
+
+        <app-ui-table [data]="filteredCustomers" [columns]="tableColumns" [isloading]="isLoadingCustomers">
+        </app-ui-table>
+
+        <ng-template #colAcciones let-customer>
+            <button class="btn btn-outline-primary btn-sm me-2 shadow-sm" (click)="onEditCustomer(customer)">
+                <i class="bi bi-pencil-square me-1"></i>
+                Editar
+            </button>
+
+            <button class="btn btn-outline-danger btn-sm shadow-sm" (click)="onDeleteCustomer(customer)">
+                <i class="bi bi-trash3 me-1"></i>
+                Eliminar
+            </button>
+        </ng-template>
+
+    </div>
+
+</div>

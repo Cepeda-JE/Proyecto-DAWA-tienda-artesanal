@@ -1,16 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { UiTable } from './ui-table';
 
-describe('UiTable', () => {
-  let component: UiTable;
-  let fixture: ComponentFixture<UiTable>;
+import { CrudOferta } from './crud-oferta';
+
+describe('CrudOferta', () => {
+  let component: CrudOferta;
+  let fixture: ComponentFixture<CrudOferta>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UiTable],
+      imports: [CrudOferta],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(UiTable);
+    fixture = TestBed.createComponent(CrudOferta);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

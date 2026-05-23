@@ -1,0 +1,132 @@
+<div class="container mt-4">
+
+  <div class="card shadow-sm border-0">
+    <div class="card-body">
+
+      <h2 class="mb-4 text-center">Gestión de Opiniones</h2>
+
+      <form [formGroup]="formOpinion">
+        <div class="row">
+
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Autor</label>
+            <input type="text" class="form-control" placeholder="Nombre del autor" formControlName="autor">
+            @if (formOpinion.get('autor')?.invalid && formOpinion.get('autor')?.touched) {
+              <small class="text-danger">
+                @if (formOpinion.get('autor')?.hasError('required')) { El nombre es obligatorio }
+                @if (formOpinion.get('autor')?.hasError('minlength')) { Debe tener al menos 3 caracteres }
+              </small>
+            }
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Correo</label>
+            <input type="email" class="form-control" placeholder="correo@ejemplo.com" formControlName="correo">
+            @if (formOpinion.get('correo')?.invalid && formOpinion.get('correo')?.touched) {
+              <small class="text-danger">
+                @if (formOpinion.get('correo')?.hasError('required')) { El correo es obligatorio }
+                @if (formOpinion.get('correo')?.hasError('email')) { Ingrese un correo válido }
+              </small>
+            }
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Calificación</label>
+            <select class="form-select" formControlName="calificacion">
+              <option [value]="null">Seleccione calificación</option>
+              @for (c of calificaciones; track c) {
+                <option [value]="c">{{ c }} estrella(s)</option>
+              }
+            </select>
+            @if (formOpinion.get('calificacion')?.invalid && formOpinion.get('calificacion')?.touched) {
+              <small class="text-danger">Seleccione una calificación</small>
+            }
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Fecha</label>
+            <input type="date" class="form-control" formControlName="fecha">
+            @if (formOpinion.get('fecha')?.invalid && formOpinion.get('fecha')?.touched) {
+              <small class="text-danger">La fecha es obligatoria</small>
+            }
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label class="form-label">ID Producto</label>
+            <input type="number" class="form-control" placeholder="Ej: 1" formControlName="idProducto">
+            @if (formOpinion.get('idProducto')?.invalid && formOpinion.get('idProducto')?.touched) {
+              <small class="text-danger">
+                @if (formOpinion.get('idProducto')?.hasError('required')) { El ID es obligatorio }
+                @if (formOpinion.get('idProducto')?.hasError('min')) { Ingrese un ID válido }
+              </small>
+            }
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Nombre del Producto</label>
+            <input type="text" class="form-control" placeholder="Nombre del producto" formControlName="nombreProducto">
+            @if (formOpinion.get('nombreProducto')?.invalid && formOpinion.get('nombreProducto')?.touched) {
+              <small class="text-danger">El nombre del producto es obligatorio</small>
+            }
+          </div>
+
+          <div class="col-12 mb-3">
+            <label class="form-label">Comentario</label>
+            <textarea class="form-control" rows="3" placeholder="Ingrese el comentario" formControlName="comentario"></textarea>
+            @if (formOpinion.get('comentario')?.invalid && formOpinion.get('comentario')?.touched) {
+              <small class="text-danger">
+                @if (formOpinion.get('comentario')?.hasError('required')) { El comentario es obligatorio }
+                @if (formOpinion.get('comentario')?.hasError('minlength')) { Debe tener al menos 10 caracteres }
+              </small>
+            }
+          </div>
+
+          <div class="col-12 mb-3">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" formControlName="aprobada" id="aprobada">
+              <label class="form-check-label" for="aprobada">Opinión aprobada</label>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="button" class="btn btn-success" (click)="onSave()">
+            {{ isEditMode ? 'Actualizar Opinión' : 'Guardar Opinión' }}
+          </button>
+          @if (isEditMode) {
+            <button type="button" class="btn btn-outline-secondary" (click)="onCancelEdit()">
+              Cancelar
+            </button>
+          }
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <h4 class="mb-3">Buscar Opinión</h4>
+    <input type="text" class="form-control mb-4" placeholder="Buscar por autor, producto o comentario..." (input)="searchOpinion($event)">
+
+    <app-ui-table [data]="filteredOpiniones" [columns]="tableColumns" [isloading]="false">
+    </app-ui-table>
+
+    <ng-template #colAcciones let-opinion>
+      <button class="btn btn-outline-primary btn-sm me-2 shadow-sm" (click)="onEdit(opinion)">
+        <i class="bi bi-pencil-square me-1"></i>Editar
+      </button>
+      <button class="btn btn-outline-danger btn-sm shadow-sm" (click)="onDelete(opinion)">
+        <i class="bi bi-trash3 me-1"></i>Eliminar
+      </button>
+    </ng-template>
+  </div>
+  <app-dialogo-confirmacion
+  #dialogoEliminar
+  titulo="Eliminar Opinión"
+  [mensaje]="'¿Deseas eliminar la opinión de ' + (opinionAEliminar?.autor || '') + '?'"
+  textoBtnConfirmar="Sí, eliminar"
+  (confirmado)="confirmarEliminar()"
+  (cancelado)="opinionAEliminar = null">
+</app-dialogo-confirmacion>
+</div>

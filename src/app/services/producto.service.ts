@@ -14,26 +14,21 @@ export interface VendedorSimple {
 })
 export class ProductoService {
 
-  // Rutas a los JSON locales (sin json-server)
   private productosUrl = 'json/productos.json';
   private vendedoresUrl = 'json/vendedores.json';
 
-  // Lista en memoria (aquí guardamos cambios)
   private productos: Producto[] = [];
-  private nextId = 6; // siguiente ID disponible
+  private nextId = 6; 
 
   constructor(private http: HttpClient) {}
 
-  // ─── LEER ───────────────────────────────────────────
   getProductos(): Observable<Producto[]> {
-    // Si ya cargamos los datos, los devolvemos de memoria
     if (this.productos.length > 0) {
       return new Observable(obs => {
         obs.next(this.productos);
         obs.complete();
       });
     }
-    // Primera vez: leemos el JSON
     return this.http.get<Producto[]>(this.productosUrl).pipe(
       map(data => {
         this.productos = data;
@@ -43,12 +38,10 @@ export class ProductoService {
     );
   }
 
-  // Obtener vendedores para el combo
   getVendedores(): Observable<VendedorSimple[]> {
     return this.http.get<VendedorSimple[]>(this.vendedoresUrl);
   }
 
-  // Buscar productos por nombre
   searchProductos(termino: string): Observable<Producto[]> {
     return new Observable(obs => {
       const resultado = this.productos.filter(p =>
@@ -59,7 +52,6 @@ export class ProductoService {
     });
   }
 
-  // Obtener un producto por ID
   getProductoById(id: number): Observable<Producto | undefined> {
     return new Observable(obs => {
       obs.next(this.productos.find(p => p.id === id));
@@ -67,7 +59,6 @@ export class ProductoService {
     });
   }
 
-  // ─── CREAR ──────────────────────────────────────────
   addProducto(producto: Producto): Observable<Producto> {
     return new Observable(obs => {
       const nuevo = { ...producto, id: this.nextId++ };
@@ -77,7 +68,6 @@ export class ProductoService {
     });
   }
 
-  // ─── ACTUALIZAR ─────────────────────────────────────
   updateProducto(producto: Producto): Observable<Producto> {
     return new Observable(obs => {
       const index = this.productos.findIndex(p => p.id === producto.id);
@@ -89,7 +79,6 @@ export class ProductoService {
     });
   }
 
-  // ─── ELIMINAR ───────────────────────────────────────
   deleteProducto(id: number): Observable<void> {
     return new Observable(obs => {
       this.productos = this.productos.filter(p => p.id !== id);

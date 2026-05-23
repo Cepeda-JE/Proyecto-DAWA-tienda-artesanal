@@ -1,0 +1,64 @@
+{
+  "ofertas": [
+    {
+      "id": 1,
+      "titulo": "Verano Artesanal",
+      "descripcion": "Descuento especial en toda la colección de verano de tejidos y textiles.",
+      "tipo": "temporada",
+      "descuentoPorcentaje": 25,
+      "fechaInicio": "2026-06-01",
+      "fechaFin": "2026-08-31",
+      "activa": true,
+      "idProducto": 3,
+      "nombreProducto": "Manta tejida a mano"
+    },
+    {
+      "id": 2,
+      "titulo": "Liquidación de Cerámica",
+      "descripcion": "Últimas unidades de cerámica pintada disponibles con precio rebajado.",
+      "tipo": "liquidacion",
+      "descuentoPorcentaje": 40,
+      "fechaInicio": "2026-05-15",
+      "fechaFin": "2026-05-31",
+      "activa": true,
+      "idProducto": 7,
+      "nombreProducto": "Jarrón de cerámica pintado"
+    },
+    {
+      "id": 3,
+      "titulo": "2x1 en Bisutería",
+      "descripcion": "Lleva dos piezas de bisutería artesanal y paga solo una.",
+      "tipo": "promocion",
+      "descuentoPorcentaje": 50,
+      "fechaInicio": "2026-05-20",
+      "fechaFin": "2026-06-10",
+      "activa": true,
+      "idProducto": 12,
+      "nombreProducto": "Collar de semillas de tagua"
+    },
+    {
+      "id": 4,
+      "titulo": "Descuento Fidelidad",
+      "descripcion": "Descuento exclusivo para clientes frecuentes en artículos de cuero.",
+      "tipo": "descuento",
+      "descuentoPorcentaje": 15,
+      "fechaInicio": "2026-01-01",
+      "fechaFin": "2026-12-31",
+      "activa": false,
+      "idProducto": 5,
+      "nombreProducto": "Billetera de cuero repujado"
+    },
+    {
+      "id": 5,
+      "titulo": "Navidad Artesanal",
+      "descripcion": "Promoción navideña en adornos y regalos artesanales.",
+      "tipo": "temporada",
+      "descuentoPorcentaje": 20,
+      "fechaInicio": "2026-12-01",
+      "fechaFin": "2026-12-25",
+      "activa": false,
+      "idProducto": 9,
+      "nombreProducto": "Adornos navideños de madera"
+    }
+  ]
+}

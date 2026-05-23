@@ -1,0 +1,198 @@
+<div class="container mt-4">
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+
+            <h2 class="mb-4 text-center">
+                Gestión de Ofertas
+            </h2>
+
+            <form [formGroup]="formOferta">
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Título</label>
+                        <input type="text" class="form-control" placeholder="Ingrese título" formControlName="titulo">
+                        @if (
+                            formOferta.get('titulo')?.invalid &&
+                            formOferta.get('titulo')?.touched
+                        ) {
+                            <small class="text-danger">
+                                @if (formOferta.get('titulo')?.hasError('required')) {
+                                    El título es obligatorio
+                                }
+                                @if (formOferta.get('titulo')?.hasError('minlength')) {
+                                    Debe tener al menos 3 caracteres
+                                }
+                            </small>
+                        }
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Tipo de oferta</label>
+                        <select class="form-select" formControlName="tipo">
+                            <option value="">Seleccione un tipo</option>
+                            @for (tipo of tiposOferta; track tipo) {
+                                <option [value]="tipo">{{ tipo }}</option>
+                            }
+                        </select>
+                        @if (
+                            formOferta.get('tipo')?.invalid &&
+                            formOferta.get('tipo')?.touched
+                        ) {
+                            <small class="text-danger">Seleccione un tipo de oferta</small>
+                        }
+                    </div>
+
+                    <div class="col-12 mb-3">
+                        <label class="form-label">Descripción</label>
+                        <textarea class="form-control" rows="3" placeholder="Ingrese descripción" formControlName="descripcion"></textarea>
+                        @if (
+                            formOferta.get('descripcion')?.invalid &&
+                            formOferta.get('descripcion')?.touched
+                        ) {
+                            <small class="text-danger">
+                                @if (formOferta.get('descripcion')?.hasError('required')) {
+                                    La descripción es obligatoria
+                                }
+                                @if (formOferta.get('descripcion')?.hasError('minlength')) {
+                                    Debe tener al menos 10 caracteres
+                                }
+                            </small>
+                        }
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Descuento (%)</label>
+                        <input type="number" class="form-control" placeholder="Ej: 25" formControlName="descuentoPorcentaje">
+                        @if (
+                            formOferta.get('descuentoPorcentaje')?.invalid &&
+                            formOferta.get('descuentoPorcentaje')?.touched
+                        ) {
+                            <small class="text-danger">
+                                @if (formOferta.get('descuentoPorcentaje')?.hasError('required')) {
+                                    El descuento es obligatorio
+                                }
+                                @if (formOferta.get('descuentoPorcentaje')?.hasError('min')) {
+                                    Debe ser al menos 1%
+                                }
+                                @if (formOferta.get('descuentoPorcentaje')?.hasError('max')) {
+                                    No puede superar el 99%
+                                }
+                            </small>
+                        }
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Producto asociado</label>
+                        <input type="text" class="form-control" placeholder="Nombre del producto" formControlName="nombreProducto">
+                        @if (
+                            formOferta.get('nombreProducto')?.invalid &&
+                            formOferta.get('nombreProducto')?.touched
+                        ) {
+                            <small class="text-danger">El nombre del producto es obligatorio</small>
+                        }
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">ID Producto</label>
+                        <input type="number" class="form-control" placeholder="Ej: 3" formControlName="idProducto">
+                        @if (
+                            formOferta.get('idProducto')?.invalid &&
+                            formOferta.get('idProducto')?.touched
+                        ) {
+                            <small class="text-danger">
+                                @if (formOferta.get('idProducto')?.hasError('required')) {
+                                    El ID del producto es obligatorio
+                                }
+                                @if (formOferta.get('idProducto')?.hasError('min')) {
+                                    Ingrese un ID válido
+                                }
+                            </small>
+                        }
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Fecha de inicio</label>
+                        <input type="date" class="form-control" formControlName="fechaInicio">
+                        @if (
+                            formOferta.get('fechaInicio')?.invalid &&
+                            formOferta.get('fechaInicio')?.touched
+                        ) {
+                            <small class="text-danger">La fecha de inicio es obligatoria</small>
+                        }
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Fecha de fin</label>
+                        <input type="date" class="form-control" formControlName="fechaFin">
+                        @if (
+                            formOferta.get('fechaFin')?.invalid &&
+                            formOferta.get('fechaFin')?.touched
+                        ) {
+                            <small class="text-danger">La fecha de fin es obligatoria</small>
+                        }
+                    </div>
+
+                    <div class="col-12 mb-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" formControlName="activa" id="activa">
+                            <label class="form-check-label" for="activa">
+                                Oferta activa
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="d-flex gap-2">
+
+                    <button type="button" class="btn btn-success" (click)="onSaveOferta()">
+                        {{ isEditMode ? 'Actualizar Oferta' : 'Guardar Oferta' }}
+                    </button>
+
+                    @if (isEditMode) {
+                        <button type="button" class="btn btn-outline-secondary" (click)="onCancelEdit()">
+                            Cancelar
+                        </button>
+                    }
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <div class="mt-4">
+
+        <h4 class="mb-3">Buscar Oferta</h4>
+
+        <input type="text" class="form-control mb-4" placeholder="Buscar oferta..." (input)="searchOferta($event)">
+
+        <app-ui-table [data]="filteredOfertas" [columns]="tableColumns" [isloading]="isLoadingOfertas">
+        </app-ui-table>
+
+        <ng-template #colAcciones let-oferta>
+            <button class="btn btn-outline-primary btn-sm me-2 shadow-sm" (click)="onEditOferta(oferta)">
+                <i class="bi bi-pencil-square me-1"></i>
+                Editar
+            </button>
+            <button class="btn btn-outline-danger btn-sm shadow-sm" (click)="onDeleteOferta(oferta)">
+                <i class="bi bi-trash3 me-1"></i>
+                Eliminar
+            </button>
+        </ng-template>
+
+    </div>
+    <app-dialogo-confirmacion
+  #dialogoEliminar
+  titulo="Eliminar Oferta"
+  [mensaje]="'¿Deseas eliminar la oferta ' + (ofertaAEliminar?.titulo || '') + '?'"
+  textoBtnConfirmar="Sí, eliminar"
+  (confirmado)="confirmarEliminar()"
+  (cancelado)="ofertaAEliminar = null">
+</app-dialogo-confirmacion>
+
+</div>

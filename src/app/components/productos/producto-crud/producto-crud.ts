@@ -21,7 +21,6 @@ export class ProductoCrud {
   formProducto!: FormGroup;
   modalRef: any;
   productoAEliminar: any = null;
-  // Computed: productos con nombre de vendedor (igual que tu ejercicio con géneros)
   productosConVendedor = computed(() => {
     return this.productos().map(p => {
       const vendedor = this.vendedores().find(v => Number(v.id) === Number(p.vendedorId));
@@ -32,8 +31,7 @@ export class ProductoCrud {
     });
   });
 
-  // Opciones fijas
-  categorias = ['ropa', 'accesorios', 'alimentos'];
+  categorias = ['Ropa', 'Accesorios', 'Alimentos'];
 
   @ViewChild('productoModalRef') modalElement!: ElementRef;
  @ViewChild('dialogoEliminar') dialogo!: DialogoConfirmacion;
@@ -76,7 +74,6 @@ export class ProductoCrud {
     });
   }
 
-  // ─── BÚSQUEDA ────────────────────────────────────────
   search(input: HTMLInputElement): void {
     const termino = input.value.toLowerCase();
     if (termino === '') {
@@ -88,21 +85,19 @@ export class ProductoCrud {
     });
   }
 
-  // ─── ABRIR MODAL NUEVO ───────────────────────────────
   openNew(): void {
     this.editingId = null;
     this.formProducto.reset({ disponible: true });
     this.modalRef.show();
   }
 
-  // ─── ABRIR MODAL EDITAR ──────────────────────────────
   openEdit(producto: Producto): void {
     this.editingId = producto.id!;
     this.formProducto.patchValue(producto);
     this.modalRef.show();
   }
 
-  // ─── GUARDAR ─────────────────────────────────────────
+
   save(): void {
     if (this.formProducto.invalid) {
       this.formProducto.markAllAsTouched();
@@ -126,14 +121,11 @@ export class ProductoCrud {
     this.modalRef.hide();
   }
 
-  // ─── ELIMINAR ────────────────────────────────────────
-  // Abre el diálogo en vez del confirm()
 delete(producto: any): void {
   this.productoAEliminar = producto;
   this.dialogo.abrir();
 }
 
-// Este se ejecuta cuando el usuario confirma
 confirmarEliminar(): void {
   if (!this.productoAEliminar) return;
   this.servicio.deleteProducto(this.productoAEliminar.id!).subscribe(() => {

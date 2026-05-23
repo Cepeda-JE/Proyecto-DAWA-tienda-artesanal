@@ -1,0 +1,48 @@
+<div class="container mt-4">
+
+  <div class="text-center mb-4">
+    <h2 class="fw-bold">🏷️ Ofertas Especiales</h2>
+    <p class="text-muted">Descuentos y promociones en productos artesanales</p>
+  </div>
+
+  <div class="row">
+    @for(o of ofertas(); track o.id) {
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm border-0 oferta-card">
+          <div class="card-body">
+
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <span class="badge {{ getBadgeTipo(o.tipo) }}">{{ o.tipo }}</span>
+              <span class="descuento-badge">-{{ o.descuentoPorcentaje }}%</span>
+            </div>
+
+            <h5 class="card-title fw-bold">{{ o.titulo }}</h5>
+            <p class="card-text text-muted small">{{ o.descripcion }}</p>
+
+            <hr>
+
+            <p class="mb-1 small">
+              <i class="bi bi-box-seam me-1"></i>
+              <strong>Producto:</strong> {{ o.nombreProducto }}
+            </p>
+            <p class="mb-1 small">
+              <i class="bi bi-calendar-event me-1"></i>
+              <strong>Desde:</strong> {{ o.fechaInicio }}
+            </p>
+            <p class="mb-0 small">
+              <i class="bi bi-calendar-x me-1"></i>
+              <strong>Hasta:</strong> {{ o.fechaFin }}
+            </p>
+
+          </div>
+        </div>
+      </div>
+    }
+
+    @if(ofertas().length === 0) {
+      <div class="col-12 text-center text-muted mt-4">
+        <p>No hay ofertas activas en este momento.</p>
+      </div>
+    }
+  </div>
+</div>

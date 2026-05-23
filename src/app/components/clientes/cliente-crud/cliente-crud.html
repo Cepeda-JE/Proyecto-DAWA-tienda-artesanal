@@ -205,4 +205,13 @@
 
     </div>
 
+    <app-dialogo-confirmacion
+  #dialogoEliminar
+  titulo="Eliminar Cliente"
+  [mensaje]="'¿Deseas eliminar a ' + (clienteAEliminar?.nombre || '') + '?'"
+  textoBtnConfirmar="Sí, eliminar"
+  (confirmado)="confirmarEliminar()"
+  (cancelado)="clienteAEliminar = null">
+</app-dialogo-confirmacion>
+
 </div>

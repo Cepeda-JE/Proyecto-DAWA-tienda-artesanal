@@ -1,6 +1,6 @@
 <div class="container-fluid mt-3">
 
-  <!-- Encabezado -->
+  <!-- titlee -->
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h2>Gestión de Productos</h2>
     <button class="btn btn-success" (click)="openNew()">
@@ -13,7 +13,7 @@
     placeholder="Buscar producto por nombre..."
     #busq (keyup)="search(busq)">
 
-  <!-- Tabla -->
+  <!-- la Tabla -->
   <table class="table table-bordered table-hover">
     <thead class="table-dark">
       <tr>
@@ -49,7 +49,7 @@
   </table>
 </div>
 
-<!-- MODAL -->
+<!-- mode -->
 <div class="modal fade" tabindex="-1" #productoModalRef>
   <div class="modal-dialog">
     <div class="modal-content">
@@ -119,7 +119,7 @@
             }
           </div>
 
-          <!-- VENDEDOR (combo) -->
+          <!-- VENDEDOR (saca de combo) -->
           <div class="mb-3">
             <label class="form-label">Vendedor</label>
             <select class="form-select" formControlName="vendedorId">
@@ -158,7 +158,7 @@
   </div>
 </div>
 
-<!-- Diálogo reutilizable de confirmaciónn -->
+<!-- Diálogo reutilizable de confirmaciónn esto reutilizar en todos-->
 <app-dialogo-confirmacion
   #dialogoEliminar
   titulo="Eliminar Producto"

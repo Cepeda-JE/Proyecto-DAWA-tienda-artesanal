@@ -41,7 +41,6 @@ export class PedidoService {
     );
   }
 
-  // Ahora usa ProductoService directamente
   getProductos(): Observable<ItemSimple[]> {
     return this.productoService.getProductos().pipe(
       map(productos => productos.map(p => ({
@@ -51,7 +50,7 @@ export class PedidoService {
     );
   }
 
-  // Ahora usa CustomerService directamente
+  // usa CustomerService directamente
   getClientes(): Observable<ItemSimple[]> {
     return this.customerService.getCustomers().pipe(
       map(clientes => clientes.map(c => ({

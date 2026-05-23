@@ -1,16 +1,19 @@
-import { Component, OnInit, TemplateRef, viewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, viewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { UiTable, tableColumn } from '../../shared/ui-table/ui-table';
 import { inject } from '@angular/core';
 import { CustomerService } from '../../../services/Customer.service';
 import { Customer } from '../../../models/customer';
+import { DialogoConfirmacion } from '../../shared/dialogo-confirmacion/dialogo-confirmacion';
+
 
 @Component({
   selector: 'app-cliente-crud',
   standalone: true,
-  imports: [UiTable, ReactiveFormsModule],
+  imports: [UiTable, ReactiveFormsModule, DialogoConfirmacion],
   templateUrl: './cliente-crud.html',
   styleUrl: './cliente-crud.css'
+  
 })
 export class ClienteCrud implements OnInit {
 
@@ -21,6 +24,9 @@ export class ClienteCrud implements OnInit {
   customerService = inject(CustomerService);
   isEditMode = false;
   currentCustomer: Customer | null = null;
+  clienteAEliminar: Customer | null = null;
+  @ViewChild('dialogoEliminar') dialogo!: DialogoConfirmacion;
+  
 
 ciudades: string[] = [
   'Guayaquil',
@@ -159,11 +165,16 @@ formCustomer = new FormGroup({
   }
 
 onDeleteCustomer(customer: Customer) {
-  const confirmDelete = confirm(`¿Eliminar a ${customer.nombre}?`);
-  if (!confirmDelete) return;
-  this.customerService.deleteCustomer(customer.id!);
+  this.clienteAEliminar = customer;
+  this.dialogo.abrir();
+}
+
+confirmarEliminar(): void {
+  if (!this.clienteAEliminar) return;
+  this.customerService.deleteCustomer(this.clienteAEliminar.id!);
   this.customers = this.customerService.getAll();
   this.filteredCustomers = [...this.customers];
+  this.clienteAEliminar = null;
 }
 
 onSaveCustomer() {

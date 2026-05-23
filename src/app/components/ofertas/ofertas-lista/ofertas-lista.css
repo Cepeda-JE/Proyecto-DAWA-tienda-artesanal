@@ -1,0 +1,18 @@
+.oferta-card {
+  border-radius: 16px;
+  transition: .3s;
+}
+
+.oferta-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0,0,0,.1) !important;
+}
+
+.descuento-badge {
+  background: #c48a5a;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 4px 12px;
+  border-radius: 20px;
+}

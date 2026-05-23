@@ -6,6 +6,10 @@ import { VendedorCrudComponent } from './components/vendedores/vendedor-crud/ven
 import { VendedorLista } from './components/vendedores/vendedor-lista/vendedor-lista';
 import { ClienteCrud } from './components/clientes/cliente-crud/cliente-crud';
 import { PedidoCrud } from './components/pedidos/pedido-crud/pedido-crud';
+import { CrudOferta } from './components/ofertas/crud-oferta/crud-oferta';
+import { CrudOpinion } from './components/opiniones/crud-opinion/crud-opinion';
+import { OfertasLista } from './components/ofertas/ofertas-lista/ofertas-lista';
+import { OpinionesLista } from './components/opiniones/opiniones-lista/opiniones-lista';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -15,8 +19,9 @@ export const routes: Routes = [
   { path: 'vendedores-lista', component: VendedorLista },
   { path: 'clientes', component: ClienteCrud },
   { path: 'pedidos', component: PedidoCrud },
-  // van agregando sus rutas aquí:
- 
-
-  { path: '**', redirectTo: '' } // ruta no encontrada → inicio
+  { path: 'ofertas', component: CrudOferta },
+  { path: 'opiniones', component: CrudOpinion },
+  { path: 'ofertas-lista', component: OfertasLista },
+{ path: 'opiniones-lista', component: OpinionesLista },
+  { path: '**', redirectTo: '' }
 ];
